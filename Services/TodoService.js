@@ -1,24 +1,23 @@
 const jwt = require("jsonwebtoken");
+const todoRepository = require("./../Repositories/TodoRepository");
+const todoMongoRepository = require("./../Repositories/TodoMongoRepositories");
+
 const secretKey = process.env.MY_SECRET_KEY;
 
-let todos = [
-  {
-    id: "b340e860-7d9a-48b7-92f5-347f2802feb6",
-    title: "Work on Security From Service",
-  },
-  {
-    id: "b340e860-7d9a-48b7-92f5-347f2802feb2",
-    name: 1,
-    title: "Work on Code Structure",
-  },
-];
-
 const getAllTodos = () => {
-  return todos;
+  return todoMongoRepository.getAllTodos().then((data) => {
+    return data;
+  });
+  // return todoRepository.getAllTodos().then((data) => {
+  //   return data;
+  // });
 };
 
 const getTodoById = (id) => {
-  return todos.find((todo) => todo.id == id);
+  return todoRepository.getTodoById(id).then((data) => {
+    // console.log(data);
+    return data;
+  });
 };
 
 const saveTodo = (todo) => {

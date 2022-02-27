@@ -1,6 +1,7 @@
 const express = require("express");
 const todoRouter = require("./Routers/TodoRoute");
 const loginController = require("./Controllers/LoginController");
+const mongoose = require("mongoose");
 
 const app = express();
 const PORT = 4001;
@@ -23,6 +24,13 @@ app.get("/api", (req, res) => {
 
 app.post("/api/login", loginController.login);
 
-app.listen(PORT, () => {
-  console.log(`Todo app listening on PORT ${PORT}`);
-});
+mongoose.connect("mongodb://localhost:27017/todo_db").then(
+  () => {
+    app.listen(PORT, () => {
+      console.log(`Todo app listening on PORT ${PORT}`);
+    });
+  },
+  (err) => {
+    console.log(err);
+  }
+);

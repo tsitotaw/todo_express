@@ -1,15 +1,16 @@
 const todoService = require("./../Services/TodoService");
 
 const getAllTodos = (req, res) => {
-  const data = todoService.getAllTodos();
-  res.json(data);
+  todoService.getAllTodos().then((data) => {
+    res.json(data);
+  });
 };
 
 const getTodoById = (req, res) => {
   let { id } = req.params;
-  let result = todoService.getTodoById(id);
-
-  res.json(result);
+  todoService.getTodoById(id).then((data) => {
+    res.json(data);
+  });
 };
 
 const saveTodo = (req, res) => {
